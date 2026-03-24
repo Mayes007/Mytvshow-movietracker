@@ -5,13 +5,19 @@ import MediaCard from "../components/MediaCard";
 function Movies() {
   const [movies, setMovies] = useState([]);
   const [title, setTitle] = useState("");
-  const [status, setStatus] = useState("plan");
+  // Set default state to match your DB string "Watchlist"
+  const [status, setStatus] = useState("Watchlist");
 
   const fetchMovies = async () => {
-    const records = await pb.collection("media").getFullList({
-      filter: 'type="movie"',
-    });
-    setMovies(records);
+    try {
+      const records = await pb.collection("media").getFullList({
+        // Updated: Match "Movie" in PocketBase
+        filter: 'type="Movie"',
+      });
+      setMovies(records);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    }
   };
 
   useEffect(() => {
@@ -19,17 +25,23 @@ function Movies() {
   }, []);
 
   const addMovie = async () => {
-    await pb.collection("media").create({
-      title,
-      type: "movie",
-      status,
-    });
-    setTitle("");
-    setStatus("plan"); // reset dropdown
-    fetchMovies();
+    if (!title) return; // Prevent empty adds
+
+    try {
+      await pb.collection("media").create({
+        title,
+        type: "Movie", // Updated: Match "Movie"
+        status,
+      });
+      setTitle("");
+      setStatus("Watchlist"); // Reset to default
+      fetchMovies();
+    } catch (error) {
+      console.error("Error adding movie:", error);
+    }
   };
 
-  // ✅ NEW: Section renderer
+  // ✅ Section renderer using exact DB strings
   const renderSection = (label, statusType) => (
     <>
       <h3>{label}</h3>
@@ -58,18 +70,18 @@ function Movies() {
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
-          <option value="plan">Watchlist</option>
-          <option value="watching">Continue Watching</option>
-          <option value="completed">Completed</option>
+          <option value="Watchlist">Watchlist</option>
+          <option value="Continue Watching">Continue Watching</option>
+          <option value="Compete">Completed</option>
         </select>
 
         <button onClick={addMovie}>Add Movie</button>
       </div>
 
-      {/* ✅ Sections */}
-      {renderSection("📌 Watchlist", "plan")}
-      {renderSection("👀 Continue Watching", "watching")}
-      {renderSection("✅ Completed", "completed")}
+      {/* ✅ Sections matching your PocketBase data exactly */}
+      {renderSection("📌 Watchlist", "Watchlist")}
+      {renderSection("👀 Continue Watching", "Continue Watching")}
+      {renderSection("✅ Completed", "Compete")}
     </div>
   );
 }

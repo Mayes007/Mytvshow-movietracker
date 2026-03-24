@@ -2,34 +2,32 @@ import { useEffect, useState } from "react";
 import pb from "../pocketbase";
 import MediaCard from "../components/MediaCard";
 
+// ... existing imports
+
 function TVShows() {
-  const [shows, setShows] = useState([]);
-  const [title, setTitle] = useState("");
-  const [status, setStatus] = useState("plan");
+  // ... existing state
 
   const fetchShows = async () => {
     const records = await pb.collection("media").getFullList({
-      filter: 'type="tv"',
+      // CHANGED: Match "Tv Show" from your screenshot
+      filter: 'type="Tv Show"', 
     });
     setShows(records);
   };
 
-  useEffect(() => {
-    fetchShows();
-  }, []);
+  // ... useEffect
 
   const addShow = async () => {
     await pb.collection("media").create({
       title,
-      type: "tv",
+      type: "Tv Show", // CHANGED: Match "Tv Show"
       status,
     });
     setTitle("");
-    setStatus("plan"); // reset dropdown
+    setStatus("Watchlist"); // CHANGED: Match "Watchlist"
     fetchShows();
   };
 
-  // ✅ NEW: Section renderer
   const renderSection = (label, statusType) => (
     <>
       <h3>{label}</h3>
@@ -46,30 +44,21 @@ function TVShows() {
   return (
     <div className="page">
       <h2>📺 TV Shows</h2>
-
       <div className="form">
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Show title"
-        />
-
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-        >
-          <option value="plan">Watchlist</option>
-          <option value="watching">Continue Watching</option>
-          <option value="completed">Completed</option>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Show title" />
+        <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          {/* CHANGED: Values must match the strings in your DB screenshot */}
+          <option value="Watchlist">Watchlist</option>
+          <option value="Continue Watching">Continue Watching</option>
+          <option value="Compete">Completed</option> 
         </select>
-
         <button onClick={addShow}>Add Show</button>
       </div>
 
-      {/* ✅ Sections */}
-      {renderSection("📌 Watchlist", "plan")}
-      {renderSection("👀 Continue Watching", "watching")}
-      {renderSection("✅ Completed", "completed")}
+      {/* CHANGED: Status keys must match exactly */}
+      {renderSection("📌 Watchlist", "Watchlist")}
+      {renderSection("👀 Continue Watching", "Continue Watching")}
+      {renderSection("✅ Completed", "Compete")}
     </div>
   );
 }

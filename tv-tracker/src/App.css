@@ -1,0 +1,23 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background: #1e1e1e;
+  padding: 15px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.center {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

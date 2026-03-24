@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import pb from "../services/pocketbase";
+import pb from "../pocketbase";
 import MediaCard from "../components/MediaCard";
 
 function Movies() {

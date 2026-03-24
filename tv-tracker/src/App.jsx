@@ -1,20 +1,23 @@
-import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
+import { Routes, Route, Link } from "react-router-dom";
 import Movies from "./pages/Movies";
-import Shows from "./pages/Shows";
+import TVShows from "./pages/TVShows";
 
 function App() {
   return (
-    <>
-      <Navbar />
+    <div>
+      <nav className="nav">
+        <h1>🎬 TV Tracker</h1>
+        <div>
+          <Link to="/">Movies</Link>
+          <Link to="/tv">TV Shows</Link>
+        </div>
+      </nav>
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/shows" element={<Shows />} />
+        <Route path="/" element={<Movies />} />
+        <Route path="/tv" element={<TVShows />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

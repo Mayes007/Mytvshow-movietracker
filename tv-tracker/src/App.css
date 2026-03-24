@@ -1,23 +1,52 @@
+body {
+  background: #0b0b0b;
+  color: white;
+  font-family: Arial;
+  margin: 0;
+}
+
 .nav {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  background: #1e1e1e;
-  padding: 15px;
+  justify-content: space-between;
+  padding: 20px;
+  background: black;
+  border-bottom: 2px solid gold;
 }
 
 .nav a {
-  color: white;
+  color: gold;
+  margin-left: 15px;
   text-decoration: none;
 }
 
-.center {
+.page {
+  padding: 20px;
   text-align: center;
-  margin-top: 50px;
 }
 
-.list {
+.form input,
+.form select {
+  padding: 10px;
+  margin: 5px;
+}
+
+button {
+  padding: 10px 15px;
+  background: gold;
+  border: none;
+  cursor: pointer;
+}
+
+.grid {
   display: flex;
   flex-wrap: wrap;
+  gap: 15px;
   justify-content: center;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 15px;
+  width: 200px;
 }

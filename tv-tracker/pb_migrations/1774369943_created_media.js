@@ -42,7 +42,7 @@ migrate((app) => {
         "system": false,
         "type": "select",
         "values": [
-          "movie, show"
+          "movie, tv show"
         ]
       },
       {
@@ -55,22 +55,8 @@ migrate((app) => {
         "system": false,
         "type": "select",
         "values": [
-          "watching, completed, plan"
+          "plan, watching, completed"
         ]
-      },
-      {
-        "hidden": false,
-        "id": "file3309110367",
-        "maxSelect": 1,
-        "maxSize": 0,
-        "mimeTypes": [],
-        "name": "image",
-        "presentable": false,
-        "protected": false,
-        "required": false,
-        "system": false,
-        "thumbs": [],
-        "type": "file"
       }
     ],
     "id": "pbc_2708086759",
